@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>PayPal 支付链接生成器</title>
+</head>
+<body>
+  <h2>PayPal 支付链接生成器</h2>
+  <label>商品名称: <input id="item" /></label><br>
+  <label>金额: <input id="amount" type="number" step="0.01" /></label><br>
+  <label>币种: <input id="currency" value="USD" /></label><br>
+  <button onclick="generate()">生成链接</button>
+  <p id="link"></p>
+  <script>
+    function generate() {
+      const item = encodeURIComponent(document.getElementById('item').value);
+      const amount = document.getElementById('amount').value;
+      const currency = document.getElementById('currency').value;
+      // 替换为你的 PayPal.me 用户名
+      const paypalMe = "toqsong";
+      const url = `https://www.paypal.me/${paypalMe}/${amount}?currencyCode=${currency}&note=${item}`;
+      document.getElementById('link').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+    }
+  </script>
+</body>
+</html>
