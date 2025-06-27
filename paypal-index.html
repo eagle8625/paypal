@@ -14,13 +14,29 @@
   <p id="link"></p>
   <script>
     function generate() {
-      const paypalMe = document.getElementById('paypalMe').value;
+      const paypalMe = document.getElementById('paypalMe').value.trim();
       const item = encodeURIComponent(document.getElementById('item').value);
-      const amount = document.getElementById('amount').value;
-      const currency = document.getElementById('currency').value;
+      const amount = document.getElementById('amount').value.trim();
+      const currency = document.getElementById('currency').value.trim();
+      if (!paypalMe || !amount || !currency) {
+        alert('请填写PayPal.me用户名、金额和币种');
+        return;
+      }
       const url = `https://www.paypal.me/${paypalMe}/${amount}?currencyCode=${currency}&note=${item}`;
       document.getElementById('link').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
     }
+
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+      // F12, Ctrl+Shift+I, Ctrl+U, Ctrl+Shift+C
+      if (
+        e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67)) ||
+        (e.ctrlKey && e.keyCode === 85)
+      ) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
